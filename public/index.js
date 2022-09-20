@@ -1,4 +1,5 @@
 const socket = io()
+let userLogin
 
 window.onload = () => {
     const form = document.querySelector('#sendMessageForm')
@@ -7,7 +8,12 @@ window.onload = () => {
 
 function sendMessage(event){
     const input = document.querySelector('#inputMessage')
-    socket.emit('chat', input.value)
+
+    if(userLogin) socket.emit('chat', input.value)
+    else {
+        socket.emit('login', input.value)
+        userLogin = input.value
+    }
 
     event.preventDefault()
 }
@@ -19,7 +25,10 @@ function renderMessage(text){
     chatField.append(li)
 }
 
-socket.on('chat', message => {
-    console.log(message)
-    renderMessage(message)
+socket.on('chat', data => {
+    renderMessage(`Mensagem recebida de ${data.username}: ${data.message}`)
+})
+
+socket.on('login', data => {
+    renderMessage(`Usuário ${data.username} conectou!`)
 })

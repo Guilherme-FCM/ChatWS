@@ -16,7 +16,13 @@ socketIo.on('connect', socket => {
 
     socket.on('chat', message => {
         console.log(`Message received from ${socket.id}: ${message}`)
-        socketIo.emit('chat', `Message received from ${socket.id}: ${message}`)
+        socketIo.emit('chat', {id: socket.id, username: socket.username, message})
+    })
+
+    socket.on('login', username => {
+        socket.username = username
+        console.log(`User ${socket.id} connected with username ${username}`)
+        socketIo.emit('login', {id: socket.id, username})
     })
 })
 
