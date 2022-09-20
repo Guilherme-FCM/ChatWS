@@ -4,6 +4,8 @@ const path = require('path')
 
 const app = express()
 
+app.use(express.static('public'))
+
 app.get('/', (request, response) => response.sendFile(path.resolve(__dirname, 'index.html')))
 
 app.listen(3000, () => console.log('Server started!'))
