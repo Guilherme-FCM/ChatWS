@@ -13,6 +13,10 @@ const server = http.Server(app)
 const socketIo = socket(server)
 socketIo.on('connect', socket => {
     console.log(`Client ${socket.id} connected`)
+
+    socket.on('chat', message => {
+        console.log(`Message received from ${socket.id}: ${message}`)
+    })
 })
 
 
