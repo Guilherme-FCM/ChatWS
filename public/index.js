@@ -11,3 +11,15 @@ function sendMessage(event){
 
     event.preventDefault()
 }
+
+function renderMessage(text){
+    const chatField = document.querySelector('#chatField')
+    const li = document.createElement('li')
+    li.innerHTML = text
+    chatField.append(li)
+}
+
+socket.on('chat', message => {
+    console.log(message)
+    renderMessage(message)
+})

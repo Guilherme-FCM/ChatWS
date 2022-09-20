@@ -16,6 +16,7 @@ socketIo.on('connect', socket => {
 
     socket.on('chat', message => {
         console.log(`Message received from ${socket.id}: ${message}`)
+        socketIo.emit('chat', `Message received from ${socket.id}: ${message}`)
     })
 })
 
