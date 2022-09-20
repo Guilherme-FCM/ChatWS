@@ -1,1 +1,3 @@
-alert('teste')
+window.onload = () => {
+    const socket = io()
+}
